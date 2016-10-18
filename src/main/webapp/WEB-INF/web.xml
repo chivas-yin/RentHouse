@@ -1,0 +1,88 @@
+ <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+    http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    
+    
+  
+  <!-- 配置spring的配置文件，主要配置数据源和bean 
+  	   若没有该配置，则默认目录为/WEB-INF下，只要配置好ContextLoaderListener即可-->
+  <context-param>
+  	<param-name>contextConfigLocation</param-name>
+  	<param-value>classpath:applicationContext.xml</param-value>
+  </context-param>
+  
+  
+  
+  <!-- ContextLoaderListener监听器的作用就是启动Web容器时，自动装配ApplicationContext的配置信息
+  		ContextLoaderListener实现了ServletContextListener这个接口，当容器启动时，就会默认实现该接口的方法。
+  		 ContextLoaderListener或ContextLoaderServlet都关联了ContextLoader这个类，ContextLoader创建XMLWebApplicationContext类，
+  		 该类实现BeanFactory的接口来创建spring上所有的bean -->
+  <listener>
+  	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  
+  <!-- 清理ServletContext无效的属性配置 -->
+  <listener>
+  	<listener-class>org.springframework.web.context.ContextCleanupListener</listener-class>
+  </listener>
+  
+  <!-- 配置springmvc -->
+  <servlet>
+  	<servlet-name>mvc-dispatcher</servlet-name>
+  	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  
+  
+  	<!-- 如果加上<param-name>contextConfigLocation</param-name>，Spring Web MVC框架将加载“classpath:spring-servlet-config.xml”
+  	来进行初始化上下文而不是“/WEB-INF/[servlet名字]-servlet.xml” -->
+  	<!-- <init-param>
+  		<param-name>contextConfigLocation</param-name>
+  		<param-value>classpath:mvc-dispatcher-servlet.xml</param-value>
+  	</init-param> -->
+  	
+  	
+  	<load-on-startup>1</load-on-startup>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>mvc-dispatcher</servlet-name>
+  	<url-pattern>/</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 字符集过滤器 -->
+  <filter>
+  	<filter-name>encodingFilter</filter-name>
+  	<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+  	
+  	<init-param>
+  		<param-name>encoding</param-name>
+  		<param-value>UTF-8</param-value>
+  	</init-param>
+  	<init-param>
+  		<param-name>forceEncoding</param-name>
+  		<param-value>true</param-value>
+  	</init-param>
+  </filter>
+  
+  <filter-mapping>
+  	<filter-name>encodingFilter</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <!-- 配置jsp自定义标签 -->
+  <jsp-config>
+  	<taglib>
+  		<taglib-uri>/mytaglib</taglib-uri>
+  		<taglib-location>/WEB-INF/mytaglib.tld</taglib-location>
+  	</taglib>
+  </jsp-config>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</web-app>

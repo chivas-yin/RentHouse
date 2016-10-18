@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<!-- mybatis的配置文件 -->
+    <typeAliases> 
+        <typeAlias alias="User" type="com.rent.model.User"/> 
+        <typeAlias alias="Article" type="com.rent.model.Article"/>
+        <typeAlias alias="PageInfo" type="com.rent.util.PageInfo"/>
+    </typeAliases>
+    
+    <plugins>
+    	<!-- 分页插件 -->
+    	<plugin interceptor="com.rent.util.PagePlugin" >
+    		<property name="dialect" value="mysql" />
+    		<property name="pageSqlId" value=".*ListPage.*" />
+    	</plugin>
+    </plugins>
+    
+</configuration>
