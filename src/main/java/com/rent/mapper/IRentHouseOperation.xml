@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.rent.inter.IRentHouseOperation">
+	<!-- 设置返回类型resultMap，用于返回List<RentHouse>,其他查询也需要用到resultMap的id -->
+	<resultMap type="RentHouse" id="resultRentHouse">
+		<id column="rh_key" property="rhKey" />
+		<result column="rh_address" property="rhAddress" />
+		<result column="rh_id" property="rhId" />
+		<result column="rh_area" property="rhArea" />
+		<result column="rh_money" property="rhMoney" />
+		<result column="rh_date" property="rhDate" />
+		<result column="rh_deposit" property="rhDeposit" />
+		<result column="status" property="status" />
+		<result column="create_date" property="createDate" />
+		<result column="last_update_date" property="lastUpdateDate" />
+	</resultMap>
+	
+	<!-- 根据主键查询 -->
+	<select id="selectHouseById" parameterType="Long" resultType="RentHouse" resultMap="resultRentHouse">
+		select * from rent_house where rh_key = #{rhKey}
+	</select>
+	
+</mapper>

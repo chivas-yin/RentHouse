@@ -72,7 +72,8 @@ public class Test {
 //	  deleteUser(1);
 	  
 	  /* 多对一查询 **/
-	  getUserArticle(3);
+//	  getUserArticle(3);
+
 	  
 	}
 	
